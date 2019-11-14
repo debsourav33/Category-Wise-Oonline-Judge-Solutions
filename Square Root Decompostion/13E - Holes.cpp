@@ -89,14 +89,12 @@ void query1(int x){
 
         jump+= jumps[last];
 
-
         lpos= last_pos[last];
         last= f_pos[last];
     }
 
     outii(lpos+1,jump);
 }
-
 
 main(){
     int x,y,m,q, opt;
@@ -123,4 +121,3 @@ main(){
         }
     }
 }
-

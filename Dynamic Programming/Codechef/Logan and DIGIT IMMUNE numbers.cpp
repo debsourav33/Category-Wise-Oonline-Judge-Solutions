@@ -38,6 +38,7 @@ typedef unsigned long long ull;
 typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
+
 i64 n;
 i64 dp[16][3][5][7][9][2][2][2][20];
 i64 digits[]= {3,5,7,9};
@@ -79,7 +80,6 @@ i64 call(i64 mask, i64 m3, i64 m5, i64 m7, i64 m9, i64 f1, i64 f2, i64 f, i64 po
     }
 
     return ret= opt1+opt2;
-
 }
 
 i64 solve(i64 x, i64 y){

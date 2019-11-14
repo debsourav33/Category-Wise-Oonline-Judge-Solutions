@@ -39,8 +39,12 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-const int N= 1e6+5;
+const int N= 1e4+5;
 
+vector<pll> d;
+vector<i64> picks;
+i64 mul[N], a[N], ans;
+int n;
 
 bool mark[N];
 vector <i64> primes;
@@ -69,66 +73,72 @@ void sieve(i64 n){
     }
 }
 
-vector<pll> d;
-vector<i64> preds;
-map<i64,int> isPrime;
-
+i64 nC4(i64 n){
+    return (n*(n-1)*(n-2)*(n-3))/(4*3*2*1);
+}
 
 void call(int pos, i64 curr, i64 cnt){
-    if(pos==preds.size()){
+    if(pos==picks.size()){
+        if(curr>=N)  return;
 
-        d.pb(mp(curr,cnt%2));  //cnt%2==1 means inclusion, cnt%2==0 means exclusion
+        if(mul[curr]>=4 && cnt) {
+            i64 sum = nC4(mul[curr]);
+            if(cnt%2)  ans-= sum;
+            else  ans+= sum;
+        }
+
         return;
     }
 
+    if(curr>=N)  return;
+    if(mul[curr]<4)  return;
+
     call(pos+1,curr,cnt);
-    call(pos+1,curr*preds[pos],cnt+1);
+    call(pos+1,curr*picks[pos],cnt+1);
+}
+
+void precalc(){
+    fr(n) {
+        i64 num= a[i], j;
+        for (j = 1; j*j < num; j++) {
+            if(num%j==0)  mul[j]++, mul[num/j]++;
+        }
+
+        if(j*j==num)  mul[j]++;
+    }
+
+    for(i64 p: primes){
+        if(mul[p]>=4)  picks.pb(p);
+    }
 }
 
 main(){
     sieve(N-2);
-    sort(all(primes));
+    int q, cas= 1;
+    si(q);
 
-    int opt, n, m;
-    i64 a;
-    si(opt);
+    while(q--) {
+        si(n);
 
-    frj(opt) {
-        d.clear();
-        preds.clear();
-        isPrime.clear();
+        picks.clear();
+        clr(mul);
 
-        sii(n,m);
-        fr(m) {
-            sl(a);
-            preds.pb(a);
-            isPrime[a]= 1;
+        fr(n) {
+            sl(a[i]);
         }
 
-        fr(preds.size())
-            call(i+1,preds[i],1);
-
-        i64 cnt= n;
-        fr(d.size()){
-            i64 f= d[i].ff, s= d[i].ss;
-
-            if(n/f==0)  continue;
-
-            if(isPrime.count(f)) {
-                cnt -= n / f - 1;
-                //outll(f,n / f - 1);
-            }
-            else if(s%2)
-                cnt-= n/f;
-            else
-                cnt+= n/f;
+        if(n<4){
+            puts("0");
+            continue;
         }
 
-        i64 c= upper_bound(all(primes),n)-primes.begin();
+        precalc();
 
-        cnt-= c;
-        if(n)  cnt--;  //1 is not composite so decrement a count
+        ans= nC4(n);
 
-        printf("Case %d: %lld\n",j+1,cnt);
+        call(0,1,0);
+
+        printf("Case %d: ",cas++);
+        outl(ans);
     }
 }

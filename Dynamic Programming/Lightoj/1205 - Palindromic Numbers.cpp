@@ -55,7 +55,6 @@ i64 call(i64 st, i64 endi, i64 f2, i64 f1, i64 f){
     return ret= opt;
 }
 
-
 i64 solve(i64 x, i64 y){
     if(!y)  return 1;
     sets(dp);

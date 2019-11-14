@@ -78,7 +78,6 @@ void sub(int u, int p){
 }
 
 
-
 void add(int u, int p){
     i64 o= occur[col[u]];
     freq[o]--, freq_sum[o]-= col[u];

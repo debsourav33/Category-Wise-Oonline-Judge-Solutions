@@ -5,6 +5,7 @@ using namespace std;
 #define si(a) scanf("%d",&a)
 #define sii(a,b) scanf("%d %d",&a,&b);
 #define siii(a,b,c) scanf("%d %d %d",&a,&b,&c);
+
 #define sl(a) scanf("%lld",&a)
 #define sll(a,b) scanf("%lld %lld",&a,&b);
 #define slll(a,b,c) scanf("%lld %lld %lld",&a,&b,&c);
@@ -22,8 +23,6 @@ using namespace std;
 #define clr(a) memset(a, 0, sizeof(a))
 #define fr(n) for(int i=0;i<n;i++)
 #define fr1(n) for(int i=1;i<=n;i++)
-#define frj(n) for(int j=0;j<n;j++)
-#define frj1(n) for(int j=1;j<=n;j++)
 #define pb push_back
 #define all(v) v.begin(),v.end()
 #define mp make_pair
@@ -38,41 +37,49 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-const int N= 1e3+5;
+vector<int> v[100005], dels;
+int vis[100005], n;
 
-char s[N];
-int dp[N][N], n, is_pali[N][N];
-
-int check(int i, int j){
-    if(i>j)  return 1;
-    if(is_pali[i][j]!=-1)  return is_pali[i][j];
-
-    return is_pali[i][j]= (s[i]==s[j]) && check(i+1,j-1);
+void reset(){
+    clr(vis);
 }
 
-int call(int i, int j){
-    if(j==n-1)  return check(i,j) ? 1 : INT_MAX;
-    if(dp[i][j]!=-1)  return dp[i][j];
+int dfs(int u){
+    vis[u]= 1;
 
-    int o1= INT_MAX, o2= INT_MAX;
-    o1= call(i,j+1);
+    int leaf= 0;
 
-    if(check(i,j))  o2= 1+ call(j+1,j+1);
 
-    return dp[i][j]= min(o1,o2);
+    fr(v[u].size()){
+        int nd= v[u][i];
+
+        leaf+= dfs(nd);
+    }
+
+    leaf= leaf ? leaf : 1;
+
+    dels.pb(leaf);
+
+    return leaf;
 }
 
 main(){
-    int opt, cas=1;
-    si(opt);
+    reset();
+    int a, b, root, x;
 
-    while(opt--){
-        sets(dp);
-        sets(is_pali);
-        scanf("%s",s);
+    si(n);
 
-        n= strlen(s);
+    fr1(n-1){
+        si(x);
 
-        printf("Case %d: %d\n",cas++,call(0,0));
+        v[x].pb(i+1);
     }
+
+    dfs(1);
+    sort(all(dels));
+
+    printf("%d",dels[0]);
+    for(int i=1;i<dels.size();i++)
+        outis(dels[i]);
+
 }

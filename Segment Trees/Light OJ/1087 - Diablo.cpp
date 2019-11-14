@@ -81,21 +81,22 @@ int query(int at, int L, int R, int l, int r){
 }
 
 int main(){
-    fastIO();
     int opt, cas= 1;
-    cin>>opt;
+    si(opt);
 
     while(cas<=opt) {
-        cout<<"Case "<<cas++<<":"<<endl;
+        printf("Case %d: ",cas++);
         clr(a);
 
         int q, x, end;
         char c;
-        cin >> n >> q;
+        //cin >> n >> q;
+        sii(n,q);
 
 
         fr(n) {
-            cin >> num[i];
+            //cin >> num[i];
+            si(num[i]);
             a[i] = 1;
         }
 
@@ -104,7 +105,8 @@ int main(){
         build(1, 0, maxn - 1);
 
         fr(q) {
-            cin >> c >> x;
+            //cin >> c >> x;
+            scanf("%c %d",&c,&x);
 
             if (c == 'a') {
                 num[end] = x;
@@ -133,10 +135,12 @@ int main(){
                 }
 
                 if (ans == -1) {
-                    cout << "none" << endl;
+                    //cout << "none" << endl;
+                    puts("none");
                     continue;
                 }
-                cout << num[ans] << endl;
+                //cout << num[ans] << endl;
+                outi(num[ans]);
                 a[ans] = 0;
                 update(1, 0, maxn - 1, ans, 0);
 
@@ -145,3 +149,4 @@ int main(){
         }
     }
 }
+

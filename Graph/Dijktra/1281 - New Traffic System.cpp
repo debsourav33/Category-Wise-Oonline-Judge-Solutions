@@ -21,6 +21,7 @@ using namespace std;
 #define cel(n,k) ((n-1)/k+1)
 #define sets(a) memset(a, -1, sizeof(a))
 #define clr(a) memset(a, 0, sizeof(a))
+
 #define fr(n) for(i64 i=0;i<n;i++)
 #define fr1(n) for(i64 i=1;i<=n;i++)
 #define frj(n) for(i64 j=0;j<n;j++)

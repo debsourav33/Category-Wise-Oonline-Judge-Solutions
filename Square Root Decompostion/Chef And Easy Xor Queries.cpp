@@ -101,7 +101,6 @@ void query(int x, int k){
 
     int st= end_block*Block, endi= x+1;
 
-
     for(int i=st;i<=x;i++) {
         curr^= a[i];
 

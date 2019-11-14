@@ -84,8 +84,6 @@ void query2(int l, int r, int k){
     outl(ans);
 }
 
-
-
 main(){
     sll(n,q);
     fr1(n){

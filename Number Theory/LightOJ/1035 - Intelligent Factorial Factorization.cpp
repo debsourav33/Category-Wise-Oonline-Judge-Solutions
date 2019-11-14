@@ -40,7 +40,6 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-
 i64 n;
 vector<pii> factors;
 int facts[105];

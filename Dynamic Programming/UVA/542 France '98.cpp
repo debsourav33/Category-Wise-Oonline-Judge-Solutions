@@ -51,7 +51,6 @@ void calc(){
     fr1(8)  pow_of_2[i]= pow_of_2[i-1]*2;
 }
 
-
 void solve(){
     calc();
     fr(16)
@@ -78,7 +77,6 @@ void solve(){
             dp[team][match] = dp[team][match - 1] * pr;
         }
     }
-
 }
 
 main(){

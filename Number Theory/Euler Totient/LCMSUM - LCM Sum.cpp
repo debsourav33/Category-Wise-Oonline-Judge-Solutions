@@ -68,7 +68,6 @@ void precalc(i64 n){
             res[j]+= (j*j)/i * phi[cnt++];  //phi[j/i]
         }
     }
-
 }
 
 main(){

@@ -5,6 +5,7 @@ using namespace std;
 #define si(a) scanf("%d",&a)
 #define sii(a,b) scanf("%d %d",&a,&b);
 #define siii(a,b,c) scanf("%d %d %d",&a,&b,&c);
+
 #define sl(a) scanf("%lld",&a)
 #define sll(a,b) scanf("%lld %lld",&a,&b);
 #define slll(a,b,c) scanf("%lld %lld %lld",&a,&b,&c);
@@ -38,41 +39,21 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-const int N= 1e3+5;
+const int N= 1e5+5, m= 1e9+9, p= 1e9+7;
 
-char s[N];
-int dp[N][N], n, is_pali[N][N];
-
-int check(int i, int j){
-    if(i>j)  return 1;
-    if(is_pali[i][j]!=-1)  return is_pali[i][j];
-
-    return is_pali[i][j]= (s[i]==s[j]) && check(i+1,j-1);
-}
-
-int call(int i, int j){
-    if(j==n-1)  return check(i,j) ? 1 : INT_MAX;
-    if(dp[i][j]!=-1)  return dp[i][j];
-
-    int o1= INT_MAX, o2= INT_MAX;
-    o1= call(i,j+1);
-
-    if(check(i,j))  o2= 1+ call(j+1,j+1);
-
-    return dp[i][j]= min(o1,o2);
-}
+double ab, ac, bc, a1, a2, a3;
 
 main(){
-    int opt, cas=1;
-    si(opt);
+    int q, cas=1;
+    si(q);
 
-    while(opt--){
-        sets(dp);
-        sets(is_pali);
-        scanf("%s",s);
+    while(q--) {
+        scanf("%lf %lf %lf %lf", &ab, &ac, &bc, &a1);
 
-        n= strlen(s);
+        a2 = a1 + 1.0;
 
-        printf("Case %d: %d\n",cas++,call(0,0));
+        double ans = ab * sqrt(a1 / a2);
+        printf("Case %d: %lf\n",cas++, ans);
     }
+
 }
