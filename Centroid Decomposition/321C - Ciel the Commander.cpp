@@ -116,7 +116,6 @@ void init_LCA(int n){
             if(P[i][j-1]!=-1)
                 P[i][j]= P[P[i][j-1]][j-1];
         }
-
     }
 }
 
@@ -193,11 +192,9 @@ main(){
         for(int u: leveled[i])  col[u]= (char) ('A'+c);
 
         c++;
-
     }
 
     fr1(n)  printf("%c\n",col[i]);
-
 }
 
 /*
@@ -208,4 +205,4 @@ main(){
 9 10 9 13
 10 11 10 12
 13 14 13 15
- */
+*/

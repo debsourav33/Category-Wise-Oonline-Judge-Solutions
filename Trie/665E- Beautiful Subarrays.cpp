@@ -75,14 +75,14 @@ struct Trie{
                 return 0;
             }
             if(i==0)
-                return root->cur;
+                return root->cur; //equal to k
         }
 
         if(bit_k==0){
             if(bit_n!=val)
                 return root->cur;
             if(i==0)
-                return root->cur;
+                return root->cur;  //equal to k
         }
 
         return query(num,k,i-1,root->child[0],0)+ query(num,k,i-1,root->child[1],1);

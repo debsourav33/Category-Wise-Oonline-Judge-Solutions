@@ -82,7 +82,7 @@ ll query(ll num, ll i, node* root){
     else
         num= setbit(num,i);
 
-    query(num,i-1,root->child[id]);
+    return query(num,i-1,root->child[id]);
 }
 
 void init(ll num, ll i, node* root){
@@ -114,7 +114,6 @@ main(){
         else
             cout<<query(num,63,root)<<endl;
     }
-
 }
 
 /*

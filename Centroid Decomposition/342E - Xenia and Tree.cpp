@@ -199,7 +199,6 @@ main(){
         if(a==2)  query(b);
         else  update(b);
     }
-
 }
 
 /*

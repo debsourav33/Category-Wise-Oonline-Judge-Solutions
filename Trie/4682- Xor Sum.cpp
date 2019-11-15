@@ -38,9 +38,11 @@ struct Trie{
     ll resetbit(ll a, ll i){
         return a & ~(1LL<<i);
     }
+
     ll setbit(ll a, ll i){
         return a | (1LL<<i);
     }
+
     bool check(ll mask, ll i){
         return mask & (1LL<<i);
     }
@@ -100,9 +102,11 @@ main(){
 }
 
 /*
+
 2
 5
 3 7 7 7 0
 5
 3 8 2 6 4
+
 */

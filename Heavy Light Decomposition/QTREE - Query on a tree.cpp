@@ -196,8 +196,8 @@ int queryUp(int u, int v){
         }
 
         int head= chainHead[vchain];
-        ans= max(ans, query(1,0,n-1, posInBase[head]+1,posInBase[v]));  //maximum in v's chain
-        ans= max(ans, BaseTree[posInBase[head]]); //chain change, so check chainhead's edge cost
+        ans= max(ans, query(1,0,n-1, posInBase[head],posInBase[v]));  //maximum in v's chain
+        //ans= max(ans, BaseTree[posInBase[head]]); //chain change, so check chainhead's edge cost
 
         v= T[head]; //change chain
     }
@@ -221,19 +221,22 @@ void reset(int n){
 }
 
 main(){
-    fastIO();
     baseIndex= no= 0;
     int opt;
-    cin>>opt;
+    //cin>>opt;
+    si(opt);
 
     while(opt--) {
 
         int a, b, c;
 
-        cin >> n;
+        //cin >> n;
+        si(n);
 
         fr(n - 1) {
-            cin >> a >> b >> c;
+            //cin >> a >> b >> c;
+            siii(a,b,c);
+
             --a, --b;
 
             v[a].pb(b);
@@ -250,18 +253,18 @@ main(){
         init_LCA(n);
         build(1, 0, n - 1);
 
-        string opt;
+        char opt[10];
         while (1) {
-            cin >> opt;
+            scanf("%s",opt);
 
-            if (opt == "QUERY") {
-                cin >> a >> b;
+            if (opt[0] == 'Q') {
+                sii(a,b);
                 --a, --b;
 
                 int ans = ansQuery(a, b);
-                cout << ans << endl;
-            } else if (opt == "CHANGE") {
-                cin >> a >> c;
+                outi(ans);
+            } else if (opt[0] == 'C') {
+                sii(a,c);
                 --a;
 
                 int x = edges[a].ff, y = edges[a].ss;
