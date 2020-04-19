@@ -40,36 +40,34 @@ typedef pair<long long,long long> pll;
 //}
 
 i64 s, x;
-i64 dp[62][2][2][2];
+i64 dp[52][2];
 
-bool checkbit(i64 num, i64 pos){
-    return num & (1LL<<pos);
+bool checkbit(i64 num, int pos){
+    return (bool) (num & (1LL<<pos));
 }
 
-i64 call(i64 pos, i64 cf, i64 flg1, i64 flg2){
-    if(pos==60) return cf==0;
+i64 call(int pos, int cf){
+    if(pos==50) return cf==0;
 
-    i64 &ret= dp[pos][cf][flg1][flg2];
+    i64 &ret= dp[pos][cf];
     if(ret!=-1)  return ret;
 
-    i64 bitS= checkbit(s,pos);
-    i64 bitX= checkbit(x,pos);
+    int bitS= checkbit(s,pos);
+    int bitX= checkbit(x,pos);
 
     i64 opt1=0, opt2= 0;
 
     if(!bitX){
         if(bitS==cf){
-            opt1= call(pos+1,0,0,0);
-            opt2= call(pos+1,1,0,0);
+            opt1= call(pos+1,0);
+            opt2= call(pos+1,1);
         }
     }
     else{
         if(bitS!=cf){
-            if(flg1==flg2) opt1= call(pos+1,cf,0,1);
-            else if(flg1) opt1= call(pos+1,cf,0,0);
+            opt1= call(pos+1,cf);
+            opt2= call(pos+1,cf);
 
-            if(flg1==flg2) opt2= call(pos+1,cf,1,0);
-            else if(flg2)  opt2= call(pos+1,cf,0,0);
         }
     }
 
@@ -77,10 +75,13 @@ i64 call(i64 pos, i64 cf, i64 flg1, i64 flg2){
 }
 
 
-main(){
+int main(){
     sets(dp);
     sll(s, x);
 
+    i64 ans= (call(0, 0));
 
-    outl(call(0, 0, 0, 0));
+    if(s==x) ans-=2;
+
+    cout<<ans<<endl;
 }
