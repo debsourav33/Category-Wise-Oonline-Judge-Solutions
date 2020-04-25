@@ -69,8 +69,10 @@ void dijakstra(i64 source){
 
     while(!q.empty()){
         cnt++;
-        i64 u= q.top().ver;
+        i64 u= q.top().ver, c= q.top().cost;
         q.pop();
+
+        if(dist[u]!=c)  continue;
 
         fr(v[u].size()){
             i64 nd= v[u][i].ver;
@@ -147,7 +149,8 @@ main(){
         printf("Case %lld:\n",j);
         fr(n){
             if(dist[i]== 1e15)  puts("Impossible");
-            else outl(solve(i));
+            else outl(dist[i]);
+            //else outl(solve(i));
         }
     }
 }

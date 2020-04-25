@@ -39,50 +39,79 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-const int N= 1e6+5;
+const int N= 3e5+5;
 
-int g[N];
-i64 pre[N];
+int a[N][8], n, m, mark[270], allset;
+vector<pii> v;
 
-int phi[N], mark[N];
-
-void sievephi(i64 n){
-    fr1(n)  phi[i]= i;
-
-    mark[1]= 1;
-    phi[1]= 1;
-
-    for(int i=2;i<=n;i++){
-        if(mark[i])  continue;
-
-        for(int j=i;j<=n;j+=i){
-            mark[j]= 1;
-            phi[j]= phi[j]- phi[j]/i;
-        }
-    }
+int setsbit(int mask, int pos){
+    return mask | (1<<pos);
 }
 
-void precalc(int n){
-    for(int i=1;i<=n;i++){
-        int cnt= 2;
-        for(int j=i+i;j<=n;j+=i){
-            g[j]+= i * phi[cnt++];  //how many times gcd(i,j)==i? cnt=phi[j/i] times!
+int getMask(int pos, int k){
+    int mask= 0;
+
+    fr(m){
+        if(a[pos][i]>=k)  mask= setsbit(mask,i);
+    }
+
+    return mask;
+}
+
+pii can(int k){
+    clr(mark);
+    v.clear();
+
+    fr(n){
+        int mask= 0;
+        mask= getMask(i,k);
+
+        if(mask==allset)  return mp(i+1,i+1);
+
+        if(!mark[mask]){
+            v.pb(mp(mask,i+1));
+            mark[mask]++;
+
+        }
+
+    }
+
+    fr(v.size()){
+        for(int j=i+1;j<v.size();j++){
+            if((v[i].ff | v[j].ff) == allset){
+                    return  mp(v[i].ss,v[j].ss);
+            }
         }
     }
+
+    return mp(0,0);
 }
 
 main(){
-    sievephi(N-2);
-    precalc(N-2);
+    sii(n,m);
 
-    fr1(N-2)  pre[i]= pre[i-1]+ g[i];
+    allset= setsbit(allset,m);
+    --allset;
 
-    int num;
-
-    while(1){
-        si(num);
-        if(!num)  break;
-
-        outl(pre[num]);
+    fr(n){
+        frj(m)  si(a[i][j]);
     }
+
+    int lo= 0, hi= 1e9;
+
+    while(lo<hi){
+        int mid= (lo+hi+1)/2;
+
+        pii p= can(mid);
+
+        if(p.ff==0)  hi= mid-1;
+        else  lo= mid;
+
+    }
+
+    pii p= can(lo);
+    outii(p.ff,p.ss);
+
+
+
 }

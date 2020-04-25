@@ -39,50 +39,51 @@ typedef pair<int,int> pii;
 typedef pair<long long,long long> pll;
 //}
 
-const int N= 1e6+5;
+const int N= 2e5+5;
 
-int g[N];
-i64 pre[N];
-
-int phi[N], mark[N];
-
-void sievephi(i64 n){
-    fr1(n)  phi[i]= i;
-
-    mark[1]= 1;
-    phi[1]= 1;
-
-    for(int i=2;i<=n;i++){
-        if(mark[i])  continue;
-
-        for(int j=i;j<=n;j+=i){
-            mark[j]= 1;
-            phi[j]= phi[j]- phi[j]/i;
-        }
-    }
-}
-
-void precalc(int n){
-    for(int i=1;i<=n;i++){
-        int cnt= 2;
-        for(int j=i+i;j<=n;j+=i){
-            g[j]+= i * phi[cnt++];  //how many times gcd(i,j)==i? cnt=phi[j/i] times!
-        }
-    }
-}
-
+int n, k, x, y;
+int a[N];
+vector<int> sums, v, t;
 main(){
-    sievephi(N-2);
-    precalc(N-2);
+    int opt;
+    si(opt);
 
-    fr1(N-2)  pre[i]= pre[i-1]+ g[i];
+    while(opt--){
+        sii(n,k);
 
-    int num;
+        fr(n)  si(a[i]);
 
-    while(1){
-        si(num);
-        if(!num)  break;
+        sums.clear();
+        v.clear();
+        t.clear();
 
-        outl(pre[num]);
+        for(int i=0;i<n/2;i++)  sums.pb(a[i]+a[n-1-i]);
+        sort(all(sums));
+
+        for(int i=0;i<n/2;i++)  v.pb(max(a[i],a[n-1-i]));
+        sort(all(v));
+
+        for(int i=0;i<n/2;i++)  t.pb(min(a[i],a[n-1-i]));
+        sort(all(t));
+
+        int lo= 2, hi= 2*k;
+
+        int ans= 0;
+        int mini= n+1, id;
+
+        for(int target=lo;target<=hi;target++){
+            ans= n/2;
+            ans-= upper_bound(all(sums),target)- lower_bound(all(sums),target);
+            ans+= upper_bound(all(v),(target-k-1))-v.begin();
+            ans+= t.size()- (upper_bound(all(t),(target-1)) -t.begin());
+
+            if(mini>ans)  id= target;
+            mini= min(mini, ans);
+
+        }
+
+        outi(mini);
     }
+
+
 }
